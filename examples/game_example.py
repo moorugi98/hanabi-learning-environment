@@ -18,6 +18,8 @@ from __future__ import print_function
 
 import numpy as np
 from hanabi_learning_environment import pyhanabi
+import intention_update
+
 
 
 def run_game(game_parameters):
@@ -74,29 +76,47 @@ def run_game(game_parameters):
 
   game = pyhanabi.HanabiGame(game_parameters)
   print(game.parameter_string(), end="")
-  obs_encoder = pyhanabi.ObservationEncoder(
-      game, enc_type=pyhanabi.ObservationEncoderType.CANONICAL)
+  # obs_encoder = pyhanabi.ObservationEncoder(
+  #     game, enc_type=pyhanabi.ObservationEncoderType.CANONICAL)
 
   state = game.new_initial_state()
+  counter = 0
   while not state.is_terminal():
     if state.cur_player() == pyhanabi.CHANCE_PLAYER_ID:
       state.deal_random_card()
       continue
 
-    print_state(state)
+    print()
+    print()
+    print('counter: ', counter)
+    # print_state(state)
 
-    observation = state.observation(state.cur_player())
-    print_observation(observation)
-    print_encoded_observations(obs_encoder, state, game.num_players())
+    # print("KNOWLEDGE")
+    knowledge = intention_update.generate_knowledge(game, state)  # knowledge is not part of pyhanabi.py
+    print(knowledge)
 
     legal_moves = state.legal_moves()
     print("")
-    print("Number of legal moves: {}".format(len(legal_moves)))
-
+    # print("Number of legal moves: {}".format(len(legal_moves)))
     move = np.random.choice(legal_moves)
-    print("Chose random legal move: {}".format(move))
-
+    # print("Chose random legal move: {}".format(move))
+    # make screenshot of old state before apply the move
+    old_state = state.copy()
     state.apply_move(move)
+
+    # code intentions
+    PLAY = 0
+    DISCARD = 1
+    KEEP = 2
+    print('INTENTION')
+    intention = intention_update.infer_single_joint_intention(game=game,
+                                                              action=move,
+                                                              state=old_state,  # use old state before applying the move
+                                                              knowledge=knowledge,
+                                                              intention_mat=[[PLAY, DISCARD],  # 3 plyr 2 hands
+                                                                             [KEEP, KEEP],
+                                                                             [KEEP, KEEP]])
+    print(intention)
 
   print("")
   print("Game done. Terminal state:")
@@ -110,4 +130,4 @@ if __name__ == "__main__":
   # Check that the cdef and library were loaded from the standard paths.
   assert pyhanabi.cdef_loaded(), "cdef failed to load"
   assert pyhanabi.lib_loaded(), "lib failed to load"
-  run_game({"players": 3, "random_start_player": True})
+  run_game({"players": 3, 'hand_size':2, 'colors':4, "random_start_player": False})
