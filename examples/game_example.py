@@ -29,7 +29,7 @@ def run_game(game_parameters):
     """Print some basic information about the state."""
     print("")
     print("Current player: {}".format(state.cur_player()))
-    print(state)
+    # print(state)
 
     # Example of more queries to provide more about this state. For
     # example, bots could use these methods to to get information
@@ -76,8 +76,6 @@ def run_game(game_parameters):
 
   game = pyhanabi.HanabiGame(game_parameters)
   print(game.parameter_string(), end="")
-  # obs_encoder = pyhanabi.ObservationEncoder(
-  #     game, enc_type=pyhanabi.ObservationEncoderType.CANONICAL)
 
   state = game.new_initial_state()
   counter = 0
@@ -89,17 +87,18 @@ def run_game(game_parameters):
     print()
     print()
     print('counter: ', counter)
-    # print_state(state)
+    print("STATE")
+    print(state)
 
-    # print("KNOWLEDGE")
+    print("KNOWLEDGE")
     knowledge = intention_update.generate_knowledge(game, state)  # knowledge is not part of pyhanabi.py
     print(knowledge)
 
     legal_moves = state.legal_moves()
     print("")
-    # print("Number of legal moves: {}".format(len(legal_moves)))
+    print("Number of legal moves: {}".format(len(legal_moves)))
     move = np.random.choice(legal_moves)
-    # print("Chose random legal move: {}".format(move))
+    print("Chose random legal move: {}".format(move))
     # make screenshot of old state before apply the move
     old_state = state.copy()
     state.apply_move(move)
@@ -108,6 +107,7 @@ def run_game(game_parameters):
     PLAY = 0
     DISCARD = 1
     KEEP = 2
+    print()
     print('INTENTION')
     intention = intention_update.infer_single_joint_intention(game=game,
                                                               action=move,
@@ -117,6 +117,7 @@ def run_game(game_parameters):
                                                                              [KEEP, KEEP],
                                                                              [KEEP, KEEP]])
     print(intention)
+    counter += 1
 
   print("")
   print("Game done. Terminal state:")

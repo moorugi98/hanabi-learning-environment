@@ -137,14 +137,14 @@ def generate_knowledge(game, state):
             knowledge[:, :, color, rank] -= 1
 
     # return HanabiCardKnowledge, which is a public information although accessed using observation
-    # which means it doesn't matter which player_index you uses (so fix to 1)
-    obs = state.observation(1)  # I don't know why, but doing this is one-liner causes weird problems
+    # which means it doesn't matter which player_index you uses (so fix to 0 for convenience with offset)
+    obs = state.observation(0)  # I don't know why, but doing this is one-liner causes weird problems
     hck = obs.card_knowledge()
     for pi, player in enumerate(hck):
         for hi, hand in enumerate(player):
             # reduce color possibility
             for color in range(game.num_colors()):
-                if  not hand.color_plausible(color):
+                if not hand.color_plausible(color):
                     knowledge[pi, hi, color] = 0
             # reduce rank possibility
             for rank in range(game.num_ranks()):
@@ -154,7 +154,13 @@ def generate_knowledge(game, state):
             # only one combination of color,rank is possible. The card is known in other words.
             if np.sum(knowledge[pi, hi] > 0) == 1:
                 col, rank = np.nonzero(knowledge[pi, hi] > 0)
-                knowledge[:, :, col[0], rank[0]] -= 1
+                # reduce the possibility for all other cards except the realisation itself
+                knowledge[:,:,col[0],rank[0]] = np.maximum(knowledge[:,:,col[0],rank[0]] - 1, 0)
+                knowledge[pi,hi,col[0],rank[0]] += 1
+
+                # plyr_index = list(range(game.num_players()))
+                # plyr_index.remove(pi)
+                # knowledge[plyr_index, :, col[0], rank[0]] = np.maximum(knowledge[plyr_index, :, col[0], rank[0]]-1, 0)
 
     return knowledge
 
