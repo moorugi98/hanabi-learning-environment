@@ -84,6 +84,7 @@ def run_game(game_parameters):
 
     state = game.new_initial_state()
     counter = 0
+    intention = 0.01 # TODO: prior for the first update
     while not state.is_terminal():
         if state.cur_player() == pyhanabi.CHANCE_PLAYER_ID:
             state.deal_random_card()
@@ -126,6 +127,7 @@ def run_game(game_parameters):
                 [KEEP, KEEP],
                 [KEEP, KEEP],
             ],
+            prior = intention
         )
         print(intention)
         counter += 1

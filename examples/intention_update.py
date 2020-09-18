@@ -83,7 +83,7 @@ def generate_knowledge(game, state):
 ################################################## INTENTION UPDATE #############################################
 
 
-def infer_single_joint_intention(game, action, state, knowledge, intention_mat):
+def infer_single_joint_intention(game, action, state, knowledge, intention_mat, prior):
     """
     a method that is called to infer probability of single joint intention instance, e.g. play,discard,discard,keep...
     :param game: HanabiGame, information about constants
@@ -91,13 +91,14 @@ def infer_single_joint_intention(game, action, state, knowledge, intention_mat):
     :param state: HanabiState
     :param knowledge: nested list
     :param intention_mat: nested list, 2-dim with 1st dim player and 2nd dim hand of each player
+    :param prior: scala, prior intention before the update
     :return: int, probability of intention vector specified by `intention_mat`
     """
     prob = 1
     for pi, player in enumerate(intention_mat):
         for ci, intention in enumerate(player):
             prob *= pragmatic_listener(
-                intention, game, action, state, knowledge, pi, ci
+                intention, game, action, state, knowledge, pi, ci, prior
             )
     return prob
 
@@ -125,13 +126,8 @@ def get_realisations_probs(game, knowledge, player_index, card_index):
     return mylist
 
 
-def get_intention_prior(state, intention):
-    # TODO: currently not context dependent
-    return 1 / 3
-
-
 def pragmatic_listener(
-    intention, game, action, state, knowledge, player_index, card_index
+    intention, game, action, state, knowledge, player_index, card_index, prior
 ):
     """
     return a scala P(i|a,c)
@@ -145,7 +141,7 @@ def pragmatic_listener(
         for r, p in get_realisations_probs(game, knowledge, player_index, card_index):
             numerator += (
                 pragmatic_speaker(game, action, i, r, state)
-                * get_intention_prior(state, i)
+                * prior
                 * p
             )
             # save the probability
