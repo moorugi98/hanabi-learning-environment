@@ -11,13 +11,7 @@ COUNTS = [3, 2, 2, 2, 1]
 PLAY = 0
 DISCARD = 1
 KEEP = 2
-# actions
-INVALID = 0
-PLAY = 1
-DISCARD = 2
-REVEAL_COLOR = 3
-REVEAL_RANK = 4
-DEAL = 5
+
 
 
 ################## Init & update knowledge ####################
@@ -81,26 +75,22 @@ def generate_knowledge(game, state):
 
 
 ################################################## INTENTION UPDATE #############################################
+def infer_joint_intention(game, action, state, knowledge, prior):
+    # shift priors indices on card accordingly if last action was play or discard
+    obs = state.observation(0)
+    if (obs.last_moves() != []) and (  # skip the very first move since no last move
+            obs.last_moves()[0].move().type() == 5):  # if the last move was dealing the card
+        plyr = obs.last_moves()[1].player()
+        for i in range(obs.last_moves()[1].move().card_index(), game.hand_size()-1):  # shift by one
+            prior[plyr, i] = copy.deepcopy(prior[plyr, i+1])
+        prior[plyr, -1] = [0.33, 0.33, 0.34]  # agnostic for new card
 
-
-def infer_single_joint_intention(game, action, state, knowledge, intention_mat, prior):
-    """
-    a method that is called to infer probability of single joint intention instance, e.g. play,discard,discard,keep...
-    :param game: HanabiGame, information about constants
-    :param action: HanabiMove
-    :param state: HanabiState
-    :param knowledge: nested list
-    :param intention_mat: nested list, 2-dim with 1st dim player and 2nd dim hand of each player
-    :param prior: scala, prior intention before the update
-    :return: int, probability of intention vector specified by `intention_mat`
-    """
-    prob = 1
-    for pi, player in enumerate(intention_mat):
-        for ci, intention in enumerate(player):
-            prob *= pragmatic_listener(
-                intention, game, action, state, knowledge, pi, ci, prior
-            )
-    return prob
+    # intention distribution for each card independently
+    table = np.zeros((game.num_players(), game.hand_size(), 3))
+    for pi in range(game.num_players()):
+        for i in range(game.hand_size()):
+            table[pi,i] = pragmatic_listener(game, action, state, knowledge, pi, i, prior[pi,i])
+    return table
 
 
 def get_realisations_probs(game, knowledge, player_index, card_index):
@@ -126,31 +116,27 @@ def get_realisations_probs(game, knowledge, player_index, card_index):
     return mylist
 
 
-def pragmatic_listener(
-    intention, game, action, state, knowledge, player_index, card_index, prior
-):
-    """
-    return a scala P(i|a,c)
-    """
+def pragmatic_listener(game, action, state, knowledge, player_index, card_index, prior):
+    '''
+    return a 3 dim simplex for PLAY,DISCARD,KEEP
+    '''
+
     # 3 dim simplex with prob for each intention
     probs = []
 
-    # compute numerator for each intention
-    for i in [PLAY, DISCARD, KEEP]:
+    # 3 different numerators for each intention
+    for intention in [PLAY, DISCARD, KEEP]:
         numerator = 0
+        # sum over r
         for r, p in get_realisations_probs(game, knowledge, player_index, card_index):
-            numerator += (
-                pragmatic_speaker(game, action, i, r, state)
-                * prior
-                * p
-            )
-            # save the probability
+            numerator += pragmatic_speaker(game, action, intention, r, state) * \
+                     prior[intention] * p
+        # save each value
         probs.append(numerator)
 
-    # normalise
-    probs = probs / np.sum(probs)
+    # normalise to probability distribution
+    return probs / np.sum(probs)
 
-    return probs[intention]
 
 
 def pragmatic_speaker(game, action, intention, realisation, state):
@@ -269,7 +255,7 @@ def utility(intention, card, state, knowledge):
 
     elif intention == KEEP:
         # keeping a playable card is punished, because it does not help the game
-        if CardPlayable(card, state.fireworks()):
+        if state.card_playable_on_fireworks(card["color"], card["rank"]):
             score -= 2
         # if card is not playable right now but is relevant in the future of the game reward keeping
         # this card depending on the remaining copies in the game

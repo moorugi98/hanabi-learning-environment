@@ -1,0 +1,1327 @@
+random_start_player=false
+seed=-1266081759
+max_life_tokens=3
+hand_size=2
+max_information_tokens=8
+ranks=5
+colors=4
+observation_type=1
+players=3
+
+
+
+counter:  0
+STATE
+Life tokens: 3
+Info tokens: 8
+Fireworks: R0 Y0 G0 W0 
+Hands:
+Cur player
+R4 || XX|RYGW12345
+R5 || XX|RYGW12345
+-----
+G1 || XX|RYGW12345
+R1 || XX|RYGW12345
+-----
+G3 || XX|RYGW12345
+R2 || XX|RYGW12345
+Deck size: 34
+Discards:
+KNOWLEDGE
+[[[[3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]]
+
+  [[3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]]
+
+  [[3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]]
+
+  [[3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]]]]
+
+Number of legal moves: 9
+Chose random legal move: (Reveal player +2 rank 2)
+
+INTENTION
+[[[0.37 0.32 0.32]
+  [0.37 0.32 0.32]]
+
+ [[0.37 0.32 0.32]
+  [0.37 0.32 0.32]]
+
+ [[0.37 0.32 0.32]
+  [0.37 0.32 0.32]]]
+
+
+
+counter:  1
+STATE
+Life tokens: 3
+Info tokens: 7
+Fireworks: R0 Y0 G0 W0 
+Hands:
+R4 || XX|RYGW12345
+R5 || XX|RYGW12345
+-----
+Cur player
+G1 || XX|RYGW12345
+R1 || XX|RYGW12345
+-----
+G3 || XX|RYGW1345
+R2 || X2|RYGW2
+Deck size: 34
+Discards:
+KNOWLEDGE
+[[[[3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]]
+
+  [[3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]]
+
+  [[3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[3 0 2 2 1]
+   [3 0 2 2 1]
+   [3 0 2 2 1]
+   [3 0 2 2 1]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 11
+Chose random legal move: (Play 0)
+
+INTENTION
+[[[0.38 0.37 0.25]
+  [0.38 0.37 0.25]]
+
+ [[0.38 0.37 0.25]
+  [0.38 0.37 0.25]]
+
+ [[0.27 0.45 0.28]
+  [0.71 0.15 0.15]]]
+
+
+
+counter:  2
+STATE
+Life tokens: 3
+Info tokens: 7
+Fireworks: R0 Y0 G1 W0 
+Hands:
+R4 || XX|RYGW12345
+R5 || XX|RYGW12345
+-----
+R1 || XX|RYGW12345
+G1 || XX|RYGW12345
+-----
+Cur player
+G3 || XX|RYGW1345
+R2 || X2|RYGW2
+Deck size: 33
+Discards:
+KNOWLEDGE
+[[[[3 2 2 2 1]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]
+
+  [[3 2 2 2 1]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[3 2 2 2 1]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]
+
+  [[3 2 2 2 1]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[3 0 2 2 1]
+   [3 0 2 2 1]
+   [2 0 2 2 1]
+   [3 0 2 2 1]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 10
+Chose random legal move: (Reveal player +1 rank 4)
+
+INTENTION
+[[[0.42 0.36 0.23]
+  [0.42 0.36 0.23]]
+
+ [[0.42 0.36 0.23]
+  [0.37 0.32 0.32]]
+
+ [[0.3  0.44 0.26]
+  [0.74 0.13 0.12]]]
+
+
+
+counter:  3
+STATE
+Life tokens: 3
+Info tokens: 6
+Fireworks: R0 Y0 G1 W0 
+Hands:
+Cur player
+R4 || X4|RYGW4
+R5 || XX|RYGW1235
+-----
+R1 || XX|RYGW12345
+G1 || XX|RYGW12345
+-----
+G3 || XX|RYGW1345
+R2 || X2|RYGW2
+Deck size: 33
+Discards:
+KNOWLEDGE
+[[[[0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]]
+
+  [[3 2 2 0 1]
+   [3 2 2 0 1]
+   [2 2 2 0 1]
+   [3 2 2 0 1]]]
+
+
+ [[[3 2 2 2 1]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]
+
+  [[3 2 2 2 1]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[3 0 2 2 1]
+   [3 0 2 2 1]
+   [2 0 2 2 1]
+   [3 0 2 2 1]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 11
+Chose random legal move: (Discard 1)
+
+INTENTION
+[[[0.46 0.34 0.2 ]
+  [0.43 0.33 0.24]]
+
+ [[0.44 0.33 0.23]
+  [0.38 0.3  0.32]]
+
+ [[0.32 0.41 0.28]
+  [0.77 0.12 0.11]]]
+
+
+
+counter:  4
+STATE
+Life tokens: 3
+Info tokens: 7
+Fireworks: R0 Y0 G1 W0 
+Hands:
+R4 || X4|RYGW4
+R1 || XX|RYGW12345
+-----
+Cur player
+R1 || XX|RYGW12345
+G1 || XX|RYGW12345
+-----
+G3 || XX|RYGW1345
+R2 || X2|RYGW2
+Deck size: 32
+Discards: R5
+KNOWLEDGE
+[[[[0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]]
+
+  [[3 2 2 2 0]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[3 2 2 2 0]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]
+
+  [[3 2 2 2 0]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[3 0 2 2 0]
+   [3 0 2 2 1]
+   [2 0 2 2 1]
+   [3 0 2 2 1]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 11
+Chose random legal move: (Reveal player +1 color G)
+
+INTENTION
+[[[0.48 0.33 0.19]
+  [0.34 0.31 0.34]]
+
+ [[0.45 0.31 0.23]
+  [0.4  0.28 0.32]]
+
+ [[0.35 0.38 0.28]
+  [0.72 0.15 0.13]]]
+
+
+
+counter:  5
+STATE
+Life tokens: 3
+Info tokens: 6
+Fireworks: R0 Y0 G1 W0 
+Hands:
+R4 || X4|RYGW4
+R1 || XX|RYGW12345
+-----
+R1 || XX|RYGW12345
+G1 || XX|RYGW12345
+-----
+Cur player
+G3 || GX|G1345
+R2 || X2|RYW2
+Deck size: 32
+Discards: R5
+KNOWLEDGE
+[[[[0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]]
+
+  [[3 2 2 2 0]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[3 2 2 2 0]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]
+
+  [[3 2 2 2 0]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[0 0 0 0 0]
+   [0 0 0 0 0]
+   [2 0 2 2 1]
+   [0 0 0 0 0]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 0 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 10
+Chose random legal move: (Reveal player +2 rank 1)
+
+INTENTION
+[[[0.53 0.3  0.17]
+  [0.38 0.3  0.32]]
+
+ [[0.49 0.3  0.21]
+  [0.43 0.27 0.3 ]]
+
+ [[0.4  0.36 0.24]
+  [0.76 0.13 0.1 ]]]
+
+
+
+counter:  6
+STATE
+Life tokens: 3
+Info tokens: 5
+Fireworks: R0 Y0 G1 W0 
+Hands:
+Cur player
+R4 || X4|RYGW4
+R1 || XX|RYGW12345
+-----
+R1 || X1|RYGW1
+G1 || X1|RYGW1
+-----
+G3 || GX|G1345
+R2 || X2|RYW2
+Deck size: 32
+Discards: R5
+KNOWLEDGE
+[[[[0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]]
+
+  [[3 2 2 2 0]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[3 0 0 0 0]
+   [3 0 0 0 0]
+   [2 0 0 0 0]
+   [3 0 0 0 0]]
+
+  [[3 0 0 0 0]
+   [3 0 0 0 0]
+   [2 0 0 0 0]
+   [3 0 0 0 0]]]
+
+
+ [[[0 0 0 0 0]
+   [0 0 0 0 0]
+   [2 0 2 2 1]
+   [0 0 0 0 0]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 0 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 11
+Chose random legal move: (Play 1)
+
+INTENTION
+[[[0.56 0.29 0.15]
+  [0.4  0.36 0.24]]
+
+ [[0.21 0.62 0.17]
+  [0.19 0.57 0.24]]
+
+ [[0.42 0.35 0.23]
+  [0.95 0.03 0.02]]]
+
+
+
+counter:  7
+STATE
+Life tokens: 3
+Info tokens: 5
+Fireworks: R1 Y0 G1 W0 
+Hands:
+R4 || X4|RYGW4
+W1 || XX|RYGW12345
+-----
+Cur player
+R1 || X1|RYGW1
+G1 || X1|RYGW1
+-----
+G3 || GX|G1345
+R2 || X2|RYW2
+Deck size: 31
+Discards: R5
+KNOWLEDGE
+[[[[0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]]
+
+  [[2 2 2 2 0]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[2 0 0 0 0]
+   [3 0 0 0 0]
+   [2 0 0 0 0]
+   [3 0 0 0 0]]
+
+  [[2 0 0 0 0]
+   [3 0 0 0 0]
+   [2 0 0 0 0]
+   [3 0 0 0 0]]]
+
+
+ [[[0 0 0 0 0]
+   [0 0 0 0 0]
+   [2 0 2 2 1]
+   [0 0 0 0 0]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 0 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 12
+Chose random legal move: (Discard 0)
+
+INTENTION
+[[[0.6  0.27 0.14]
+  [0.36 0.32 0.33]]
+
+ [[0.22 0.61 0.17]
+  [0.2  0.56 0.24]]
+
+ [[0.46 0.33 0.22]
+  [0.96 0.02 0.02]]]
+
+
+
+counter:  8
+STATE
+Life tokens: 3
+Info tokens: 6
+Fireworks: R1 Y0 G1 W0 
+Hands:
+R4 || X4|RYGW4
+W1 || XX|RYGW12345
+-----
+G1 || X1|RYGW1
+Y1 || XX|RYGW12345
+-----
+Cur player
+G3 || GX|G1345
+R2 || X2|RYW2
+Deck size: 30
+Discards: R5 R1
+KNOWLEDGE
+[[[[0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]]
+
+  [[1 2 2 2 0]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[1 0 0 0 0]
+   [3 0 0 0 0]
+   [2 0 0 0 0]
+   [3 0 0 0 0]]
+
+  [[1 2 2 2 0]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[0 0 0 0 0]
+   [0 0 0 0 0]
+   [2 0 2 2 1]
+   [0 0 0 0 0]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 0 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 11
+Chose random legal move: (Reveal player +1 rank 1)
+
+INTENTION
+[[[0.61 0.25 0.13]
+  [0.37 0.31 0.33]]
+
+ [[0.21 0.56 0.24]
+  [0.34 0.32 0.34]]
+
+ [[0.48 0.32 0.19]
+  [0.97 0.01 0.02]]]
+
+
+
+counter:  9
+STATE
+Life tokens: 3
+Info tokens: 5
+Fireworks: R1 Y0 G1 W0 
+Hands:
+Cur player
+R4 || X4|RYGW4
+W1 || X1|RYGW1
+-----
+G1 || X1|RYGW1
+Y1 || XX|RYGW12345
+-----
+G3 || GX|G1345
+R2 || X2|RYW2
+Deck size: 30
+Discards: R5 R1
+KNOWLEDGE
+[[[[0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]]
+
+  [[1 0 0 0 0]
+   [3 0 0 0 0]
+   [2 0 0 0 0]
+   [3 0 0 0 0]]]
+
+
+ [[[1 0 0 0 0]
+   [3 0 0 0 0]
+   [2 0 0 0 0]
+   [3 0 0 0 0]]
+
+  [[1 2 2 2 0]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[0 0 0 0 0]
+   [0 0 0 0 0]
+   [2 0 2 2 1]
+   [0 0 0 0 0]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 0 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 11
+Chose random legal move: (Reveal player +2 color G)
+
+INTENTION
+[[[0.64 0.24 0.12]
+  [0.43 0.23 0.34]]
+
+ [[0.27 0.46 0.27]
+  [0.35 0.31 0.34]]
+
+ [[0.5  0.31 0.18]
+  [0.96 0.02 0.02]]]
+
+
+
+counter:  10
+STATE
+Life tokens: 3
+Info tokens: 4
+Fireworks: R1 Y0 G1 W0 
+Hands:
+R4 || X4|RYGW4
+W1 || X1|RYGW1
+-----
+Cur player
+G1 || X1|RYGW1
+Y1 || XX|RYGW12345
+-----
+G3 || GX|G1345
+R2 || X2|RYW2
+Deck size: 30
+Discards: R5 R1
+KNOWLEDGE
+[[[[0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]]
+
+  [[1 0 0 0 0]
+   [3 0 0 0 0]
+   [2 0 0 0 0]
+   [3 0 0 0 0]]]
+
+
+ [[[1 0 0 0 0]
+   [3 0 0 0 0]
+   [2 0 0 0 0]
+   [3 0 0 0 0]]
+
+  [[1 2 2 2 0]
+   [3 2 2 2 1]
+   [2 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[0 0 0 0 0]
+   [0 0 0 0 0]
+   [2 0 2 2 1]
+   [0 0 0 0 0]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 0 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 12
+Chose random legal move: (Play 0)
+
+INTENTION
+[[[0.2  0.54 0.26]
+  [0.41 0.2  0.4 ]]
+
+ [[0.26 0.4  0.33]
+  [0.18 0.37 0.44]]
+
+ [[0.13 0.55 0.32]
+  [0.89 0.05 0.06]]]
+
+
+
+counter:  11
+STATE
+Life tokens: 2
+Info tokens: 4
+Fireworks: R1 Y0 G1 W0 
+Hands:
+R4 || X4|RYGW4
+W1 || X1|RYGW1
+-----
+Y1 || XX|RYGW12345
+R3 || XX|RYGW12345
+-----
+Cur player
+G3 || GX|G1345
+R2 || X2|RYW2
+Deck size: 29
+Discards: R5 R1 G1
+KNOWLEDGE
+[[[[0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]]
+
+  [[1 0 0 0 0]
+   [3 0 0 0 0]
+   [1 0 0 0 0]
+   [3 0 0 0 0]]]
+
+
+ [[[1 2 2 2 0]
+   [3 2 2 2 1]
+   [1 2 2 2 1]
+   [3 2 2 2 1]]
+
+  [[1 2 2 2 0]
+   [3 2 2 2 1]
+   [1 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[0 0 0 0 0]
+   [0 0 0 0 0]
+   [1 0 2 2 1]
+   [0 0 0 0 0]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 0 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 12
+Chose random legal move: (Reveal player +2 rank 1)
+
+INTENTION
+[[[0.22 0.53 0.25]
+  [0.41 0.19 0.39]]
+
+ [[0.19 0.37 0.45]
+  [0.34 0.32 0.34]]
+
+ [[0.14 0.56 0.3 ]
+  [0.91 0.03 0.05]]]
+
+
+
+counter:  12
+STATE
+Life tokens: 2
+Info tokens: 3
+Fireworks: R1 Y0 G1 W0 
+Hands:
+Cur player
+R4 || X4|RYGW4
+W1 || X1|RYGW1
+-----
+Y1 || X1|RYGW1
+R3 || XX|RYGW2345
+-----
+G3 || GX|G1345
+R2 || X2|RYW2
+Deck size: 29
+Discards: R5 R1 G1
+KNOWLEDGE
+[[[[0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]]
+
+  [[1 0 0 0 0]
+   [3 0 0 0 0]
+   [1 0 0 0 0]
+   [3 0 0 0 0]]]
+
+
+ [[[1 0 0 0 0]
+   [3 0 0 0 0]
+   [1 0 0 0 0]
+   [3 0 0 0 0]]
+
+  [[0 2 2 2 0]
+   [0 2 2 2 1]
+   [0 2 2 2 1]
+   [0 2 2 2 1]]]
+
+
+ [[[0 0 0 0 0]
+   [0 0 0 0 0]
+   [1 0 2 2 1]
+   [0 0 0 0 0]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 0 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 12
+Chose random legal move: (Reveal player +1 color Y)
+
+INTENTION
+[[[0.24 0.53 0.23]
+  [0.47 0.13 0.4 ]]
+
+ [[0.23 0.28 0.49]
+  [0.34 0.33 0.34]]
+
+ [[0.15 0.55 0.29]
+  [0.88 0.05 0.07]]]
+
+
+
+counter:  13
+STATE
+Life tokens: 2
+Info tokens: 2
+Fireworks: R1 Y0 G1 W0 
+Hands:
+R4 || X4|RYGW4
+W1 || X1|RYGW1
+-----
+Cur player
+Y1 || Y1|Y1
+R3 || XX|RGW2345
+-----
+G3 || GX|G1345
+R2 || X2|RYW2
+Deck size: 29
+Discards: R5 R1 G1
+KNOWLEDGE
+[[[[0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]]
+
+  [[1 0 0 0 0]
+   [2 0 0 0 0]
+   [1 0 0 0 0]
+   [3 0 0 0 0]]]
+
+
+ [[[0 0 0 0 0]
+   [3 0 0 0 0]
+   [0 0 0 0 0]
+   [0 0 0 0 0]]
+
+  [[0 2 2 2 0]
+   [0 0 0 0 0]
+   [0 2 2 2 1]
+   [0 2 2 2 1]]]
+
+
+ [[[0 0 0 0 0]
+   [0 0 0 0 0]
+   [1 0 2 2 1]
+   [0 0 0 0 0]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 0 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 12
+Chose random legal move: (Play 0)
+
+INTENTION
+[[[0.25 0.52 0.23]
+  [0.24 0.37 0.39]]
+
+ [[0.   0.73 0.27]
+  [0.36 0.32 0.32]]
+
+ [[0.16 0.55 0.29]
+  [0.98 0.01 0.01]]]
+
+
+
+counter:  14
+STATE
+Life tokens: 2
+Info tokens: 2
+Fireworks: R1 Y1 G1 W0 
+Hands:
+R4 || X4|RYGW4
+W1 || X1|RYGW1
+-----
+R3 || XX|RGW2345
+G2 || XX|RYGW12345
+-----
+Cur player
+G3 || GX|G1345
+R2 || X2|RYW2
+Deck size: 28
+Discards: R5 R1 G1
+KNOWLEDGE
+[[[[0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]
+   [0 0 0 2 0]]
+
+  [[1 0 0 0 0]
+   [2 0 0 0 0]
+   [1 0 0 0 0]
+   [3 0 0 0 0]]]
+
+
+ [[[0 2 2 2 0]
+   [0 0 0 0 0]
+   [0 2 2 2 1]
+   [0 2 2 2 1]]
+
+  [[1 2 2 2 0]
+   [2 2 2 2 1]
+   [1 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[0 0 0 0 0]
+   [0 0 0 0 0]
+   [1 0 2 2 1]
+   [0 0 0 0 0]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 0 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 12
+Chose random legal move: (Reveal player +1 color R)
+
+INTENTION
+[[[0.27 0.51 0.22]
+  [0.25 0.36 0.38]]
+
+ [[0.37 0.31 0.32]
+  [0.34 0.32 0.34]]
+
+ [[0.18 0.56 0.26]
+  [0.98 0.   0.01]]]
+
+
+
+counter:  15
+STATE
+Life tokens: 2
+Info tokens: 1
+Fireworks: R1 Y1 G1 W0 
+Hands:
+Cur player
+R4 || R4|R4
+W1 || X1|YGW1
+-----
+R3 || XX|RGW2345
+G2 || XX|RYGW12345
+-----
+G3 || GX|G1345
+R2 || X2|RYW2
+Deck size: 28
+Discards: R5 R1 G1
+KNOWLEDGE
+[[[[0 0 0 2 0]
+   [0 0 0 0 0]
+   [0 0 0 0 0]
+   [0 0 0 0 0]]
+
+  [[0 0 0 0 0]
+   [2 0 0 0 0]
+   [1 0 0 0 0]
+   [3 0 0 0 0]]]
+
+
+ [[[0 2 2 1 0]
+   [0 0 0 0 0]
+   [0 2 2 2 1]
+   [0 2 2 2 1]]
+
+  [[1 2 2 1 0]
+   [2 2 2 2 1]
+   [1 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[0 0 0 0 0]
+   [0 0 0 0 0]
+   [1 0 2 2 1]
+   [0 0 0 0 0]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 0 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 12
+Chose random legal move: (Discard 1)
+
+INTENTION
+[[[0.3  0.54 0.16]
+  [0.26 0.26 0.48]]
+
+ [[0.36 0.32 0.33]
+  [0.34 0.31 0.35]]
+
+ [[0.19 0.55 0.26]
+  [0.98 0.01 0.02]]]
+
+
+
+counter:  16
+STATE
+Life tokens: 2
+Info tokens: 2
+Fireworks: R1 Y1 G1 W0 
+Hands:
+R4 || R4|R4
+R1 || XX|RYGW12345
+-----
+Cur player
+R3 || XX|RGW2345
+G2 || XX|RYGW12345
+-----
+G3 || GX|G1345
+R2 || X2|RYW2
+Deck size: 27
+Discards: R5 R1 G1 W1
+KNOWLEDGE
+[[[[0 0 0 2 0]
+   [0 0 0 0 0]
+   [0 0 0 0 0]
+   [0 0 0 0 0]]
+
+  [[1 2 2 1 0]
+   [2 2 2 2 1]
+   [1 2 2 2 1]
+   [2 2 2 2 1]]]
+
+
+ [[[0 2 2 1 0]
+   [0 0 0 0 0]
+   [0 2 2 2 1]
+   [0 2 2 2 1]]
+
+  [[1 2 2 1 0]
+   [2 2 2 2 1]
+   [1 2 2 2 1]
+   [2 2 2 2 1]]]
+
+
+ [[[0 0 0 0 0]
+   [0 0 0 0 0]
+   [1 0 2 2 1]
+   [0 0 0 0 0]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 0 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 11
+Chose random legal move: (Reveal player +2 rank 4)
+
+INTENTION
+[[[0.32 0.52 0.16]
+  [0.34 0.32 0.34]]
+
+ [[0.37 0.31 0.33]
+  [0.35 0.3  0.35]]
+
+ [[0.14 0.58 0.27]
+  [0.98 0.01 0.02]]]
+
+
+
+counter:  17
+STATE
+Life tokens: 2
+Info tokens: 1
+Fireworks: R1 Y1 G1 W0 
+Hands:
+R4 || R4|R4
+R1 || XX|RYGW1235
+-----
+R3 || XX|RGW2345
+G2 || XX|RYGW12345
+-----
+Cur player
+G3 || GX|G1345
+R2 || X2|RYW2
+Deck size: 27
+Discards: R5 R1 G1 W1
+KNOWLEDGE
+[[[[0 0 0 2 0]
+   [0 0 0 0 0]
+   [0 0 0 0 0]
+   [0 0 0 0 0]]
+
+  [[1 2 2 0 0]
+   [2 2 2 0 1]
+   [1 2 2 0 1]
+   [2 2 2 0 1]]]
+
+
+ [[[0 2 2 1 0]
+   [0 0 0 0 0]
+   [0 2 2 2 1]
+   [0 2 2 2 1]]
+
+  [[1 2 2 1 0]
+   [2 2 2 2 1]
+   [1 2 2 2 1]
+   [2 2 2 2 1]]]
+
+
+ [[[0 0 0 0 0]
+   [0 0 0 0 0]
+   [1 0 2 2 1]
+   [0 0 0 0 0]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 0 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 11
+Chose random legal move: (Reveal player +2 color R)
+
+INTENTION
+[[[0.34 0.51 0.16]
+  [0.35 0.31 0.34]]
+
+ [[0.38 0.29 0.33]
+  [0.36 0.29 0.35]]
+
+ [[0.16 0.59 0.25]
+  [0.98 0.   0.01]]]
+
+
+
+counter:  18
+STATE
+Life tokens: 2
+Info tokens: 0
+Fireworks: R1 Y1 G1 W0 
+Hands:
+Cur player
+R4 || R4|R4
+R1 || XX|RYGW1235
+-----
+R3 || RX|R2345
+G2 || XX|YGW12345
+-----
+G3 || GX|G1345
+R2 || X2|RYW2
+Deck size: 27
+Discards: R5 R1 G1 W1
+KNOWLEDGE
+[[[[0 0 0 2 0]
+   [0 0 0 0 0]
+   [0 0 0 0 0]
+   [0 0 0 0 0]]
+
+  [[1 2 2 0 0]
+   [2 2 2 0 1]
+   [1 2 2 0 1]
+   [2 2 2 0 1]]]
+
+
+ [[[0 2 2 1 0]
+   [0 0 0 0 0]
+   [0 0 0 0 0]
+   [0 0 0 0 0]]
+
+  [[0 0 0 0 0]
+   [2 2 2 2 1]
+   [1 2 2 2 1]
+   [2 2 2 2 1]]]
+
+
+ [[[0 0 0 0 0]
+   [0 0 0 0 0]
+   [1 0 2 2 1]
+   [0 0 0 0 0]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 0 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 4
+Chose random legal move: (Play 0)
+
+INTENTION
+[[[0.   0.55 0.45]
+  [0.15 0.41 0.45]]
+
+ [[0.19 0.34 0.46]
+  [0.12 0.4  0.48]]
+
+ [[0.   0.71 0.29]
+  [0.97 0.01 0.02]]]
+
+
+
+counter:  19
+STATE
+Life tokens: 1
+Info tokens: 0
+Fireworks: R1 Y1 G1 W0 
+Hands:
+R1 || XX|RYGW1235
+Y4 || XX|RYGW12345
+-----
+Cur player
+R3 || RX|R2345
+G2 || XX|YGW12345
+-----
+G3 || GX|G1345
+R2 || X2|RYW2
+Deck size: 26
+Discards: R5 R1 G1 W1 R4
+KNOWLEDGE
+[[[[1 2 2 0 0]
+   [2 2 2 0 1]
+   [1 2 2 0 1]
+   [2 2 2 0 1]]
+
+  [[1 2 2 1 0]
+   [2 2 2 2 1]
+   [1 2 2 2 1]
+   [2 2 2 2 1]]]
+
+
+ [[[0 2 2 1 0]
+   [0 0 0 0 0]
+   [0 0 0 0 0]
+   [0 0 0 0 0]]
+
+  [[0 0 0 0 0]
+   [2 2 2 2 1]
+   [1 2 2 2 1]
+   [2 2 2 2 1]]]
+
+
+ [[[0 0 0 0 0]
+   [0 0 0 0 0]
+   [1 0 2 2 1]
+   [0 0 0 0 0]]
+
+  [[0 2 0 0 0]
+   [0 2 0 0 0]
+   [0 0 0 0 0]
+   [0 2 0 0 0]]]]
+
+Number of legal moves: 4
+Chose random legal move: (Play 0)
+
+INTENTION
+[[[0.33 0.3  0.37]
+  [0.6  0.18 0.21]]
+
+ [[0.39 0.2  0.4 ]
+  [0.29 0.31 0.4 ]]
+
+ [[0.   0.71 0.29]
+  [0.99 0.   0.01]]]
+
+Game done. Terminal state:
+
+Life tokens: 0
+Info tokens: 0
+Fireworks: R1 Y1 G1 W0 
+Hands:
+R1 || XX|RYGW1235
+Y4 || XX|RYGW12345
+-----
+G2 || XX|YGW12345
+-----
+G3 || GX|G1345
+R2 || X2|RYW2
+Deck size: 26
+Discards: R5 R1 G1 W1 R4 R3
+
+score: 0

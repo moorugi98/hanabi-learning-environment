@@ -84,12 +84,16 @@ def run_game(game_parameters):
 
     state = game.new_initial_state()
     counter = 0
-    intention = 0.01 # TODO: prior for the first update
+    # intention = 0.01  # TODO: prior for the first update
+    intention = np.array([[[0.33, 0.33, 0.34] for i in range(game.hand_size())] for pi in range(game.num_players())])
+    intention_history = []
+
     while not state.is_terminal():
         if state.cur_player() == pyhanabi.CHANCE_PLAYER_ID:
             state.deal_random_card()
             continue
 
+        print()
         print()
         print()
         print("counter: ", counter)
@@ -101,6 +105,7 @@ def run_game(game_parameters):
             game, state
         )  # knowledge is not part of pyhanabi.py
         print(knowledge)
+
 
         legal_moves = state.legal_moves()
         print("")
@@ -117,19 +122,29 @@ def run_game(game_parameters):
         KEEP = 2
         print()
         print("INTENTION")
-        intention = intention_update.infer_single_joint_intention(
-            game=game,
-            action=move,
-            state=old_state,  # use old state before applying the move
-            knowledge=knowledge,
-            intention_mat=[
-                [PLAY, DISCARD],  # 3 plyr 2 hands
-                [KEEP, KEEP],
-                [KEEP, KEEP],
-            ],
-            prior = intention
-        )
+        # intention = intention_update.infer_single_joint_intention(
+        # intention = intention_update.infer_single_joint_intention(
+        #     game=game,
+        #     action=move,
+        #     state=old_state,  # use old state before applying the move
+        #     knowledge=knowledge,
+        #     intention_mat=[
+        #         [PLAY, DISCARD],  # 3 plyr 2 hands
+        #         [KEEP, KEEP],
+        #         [KEEP, KEEP],
+        #     ],
+        #     prior = intention
+        # )
+        intention = intention_update.infer_joint_intention(
+                                                        game=game,
+                                                        action=move,
+                                                        state=old_state,
+                                                        knowledge=knowledge,
+                                                        prior=intention)
+        intention_history.append(intention)
+        np.set_printoptions(precision=2, suppress= True)
         print(intention)
+        np.save('history.npy', intention_history)  # save histories of intention change for later analysis
         counter += 1
 
     print("")
@@ -144,4 +159,5 @@ if __name__ == "__main__":
     # Check that the cdef and library were loaded from the standard paths.
     assert pyhanabi.cdef_loaded(), "cdef failed to load"
     assert pyhanabi.lib_loaded(), "lib failed to load"
+    # currently, only using colors=4 ensures correct return of firework after copying the state due to bug
     run_game({"players": 3, "hand_size": 2, "colors": 4, "random_start_player": False})

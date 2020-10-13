@@ -399,7 +399,6 @@ class HanabiMove(object):
 class HanabiHistoryItem(object):
   """A move that has been made within a game, along with the side-effects.
 
-  For example, a play move simply selects a card index between 0-5, but after
   making the move, there is an associated color and rank for the selected card,
   a possibility that the card was successfully added to the fireworks, and an
   information token added if the firework stack was completed.
