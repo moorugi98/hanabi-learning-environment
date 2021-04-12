@@ -15,7 +15,8 @@
 """Example code demonstrating the Python Hanabi interface."""
 
 from __future__ import print_function
-
+import os
+from datetime import datetime
 import numpy as np
 from hanabi_learning_environment import pyhanabi
 import intention_update
@@ -133,7 +134,8 @@ def run_game(game_parameters):
     print(state)
     print("")
     print("score: {}".format(state.score()))
-    np.save('history.npy', intention_history)  # save histories of intention change for later analysis
+    path = os.path.join(os.getcwd(), 'history', 'score:{}_{}.npy'.format(state.score(), datetime.now()))
+    np.save(path, intention_history)  # save histories of intention change for later analysis
 
 
 if __name__ == "__main__":
