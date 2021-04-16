@@ -1,8 +1,8 @@
 import copy
 import numpy as np
 # TODO: select the right utility function
-from utility_Saskia import utility
-# from Edited_Utility_Function_Bianca import utility
+# from utility_Saskia import utility
+from Edited_Utility_Function_Bianca import utility
 
 # # encode constants here temporally for convenience although ideally it should be encoded in pyhanabi.py
 COUNTS = [3, 2, 2, 2, 1]

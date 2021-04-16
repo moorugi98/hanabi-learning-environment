@@ -75,11 +75,11 @@ def utility(intention, card, state, knowledge):
         if state.card_playable_on_fireworks(card_color, card_rank):
             # [B]: check if the same card is already cued as 'playable'
             # on some other player's hand first
-            if ((card_on_hands['color'] is card_color) and (card_on_hands['rank'] is rank_color)):
-                # [B]: #TODO: check if other card instance is already hinted as "PLAY" or "KEEP"
-                # if YES:
-                #   score += -1
-            else:
+            # if ((card_on_hands['color'] is card_color) and (card_on_hands['rank'] is rank_color)):
+            #     # [B]: #TODO: check if other card instance is already hinted as "PLAY" or "KEEP"
+            #     # if YES:
+            #     #   score += -1
+            if True:
                 score += 10
 
         # [B, only added comment]: case 2: card is not playable right now
@@ -136,14 +136,14 @@ def utility(intention, card, state, knowledge):
             card_rank = card["rank"]
             # [B]: Check if to be discarded card is already clued on someone's
             # hand, otherwise punish that -0.5
-            # (TODO: estimated_hands in deepmind framework?)
-            for card_on_hands in state.estimated_hands[:]:
-                if ((card_on_hands['color'] is card_color) and (card_on_hands['rank'] is rank_color)):
-                    # [B]: #TODO: check if other card instance is already hinted as "PLAY" or KEEP
-                    # if YES:
-                    #   score += 1
-                else:
-                    score += -0.5
+            # # (TODO: estimated_hands in deepmind framework?)
+            # for card_on_hands in state.estimated_hands[:]:
+            #     if ((card_on_hands['color'] is card_color) and (card_on_hands['rank'] is rank_color)):
+            #         # [B]: #TODO: check if other card instance is already hinted as "PLAY" or KEEP
+            #         # if YES:
+            #         #   score += 1
+            #     else:
+            #         score += -0.5
 
             # [B, only added comment]: How bad is discarding the
             # particular card for the game /end score?
@@ -172,7 +172,7 @@ def utility(intention, card, state, knowledge):
         # [B, only added comment]: Case 1: card is playable right now
         # keeping a playable card is punished, because it does not help the game
         # [B]: I'm unsure about this part
-        if CardPlayable(card, state.fireworks()):
+        if state.card_playable_on_fireworks(card['color'], card['rank']):
             score += -2
 
         # [B]: Case 2: card will be playable soon (with one additional card needed on the stack)
@@ -221,8 +221,8 @@ def utility(intention, card, state, knowledge):
         # [B]: Punsish if the agent after the playing agent will not have an
         # information token available anymore (which might result in criticial
         # cards being discarded)
-        elif: state.information_tokens() == 0:
-                score += -3
+        elif state.information_tokens() == 0:
+            score += -3
 
         ######################################
         #TODO:
