@@ -64,10 +64,11 @@ def infer_joint_intention(game, action, state, knowledge, prior):
         plyr = obs.last_moves()[1].player()
         for i in range(obs.last_moves()[1].move().card_index(), game.hand_size()-1):  # shift by one
             prior[plyr, i] = copy.deepcopy(prior[plyr, i+1])
-        prior[plyr, -1] = [0.33, 0.33, 0.34]  # agnostic for new card
+        prior[plyr, -1] = [0.3, 0.2, 0.5]  # agnostic for new card
 
     # Get intention for each card independently
     table = np.zeros((game.num_players(), game.hand_size(), 3))
+    # TODO: exclude active player for the actual use?
     for pi in range(game.num_players()):
         for i in range(game.hand_size()):
             table[pi,i] = pragmatic_listener(game, action, state, knowledge, pi, i, prior[pi,i])
@@ -125,7 +126,7 @@ def pragmatic_speaker(game, action, intention, realisation, state):
     return a scala which is P(action|intention,realisation,context)
     """
     # TODO: adjust rationality parameter dynamically
-    alpha = 1
+    alpha = 10
 
     # compute numerator
     # TODO: copying doesn't perfectly copy??  state.fireworks()
@@ -140,6 +141,16 @@ def pragmatic_speaker(game, action, intention, realisation, state):
     denominator = 0
     # automatically only select actions with P(a*|r,c) != 0
     # iterate over all actions that the last agent could've taken
+    # TODO: legal_moves() should come from realization-specific states, see line 494 in pyhanabi.py
+
+    # print("!!!!!!!!!!!!!!!")
+    # a = move.get_reveal_rank_move(target_offset=2, rank=0)
+    # print(a)
+    # state.apply_move(a)
+    # print("!!!!!!!!!!!!")
+    # print(state)
+    # break
+
     for a in state.legal_moves():
         ns = state.copy()
         # this is how different actions makes a difference
