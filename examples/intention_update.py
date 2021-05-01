@@ -1,7 +1,5 @@
 import copy
 import numpy as np
-# TODO: select the right utility function
-# from utility_Saskia import utility
 from Edited_Utility_Function_Bianca import utility
 
 # # encode constants here temporally for convenience although ideally it should be encoded in pyhanabi.py
@@ -69,36 +67,63 @@ def infer_joint_intention(game, action, state, knowledge, prior):
     # Get intention for each card independently
     table = np.zeros((game.num_players(), game.hand_size(), 3))
     # TODO: exclude active player for the actual use?
+    realisations = get_realisations_probs(game, knowledge, sample_num=100)  # joint realisations is same for all cards
     for pi in range(game.num_players()):
         for i in range(game.hand_size()):
-            table[pi,i] = pragmatic_listener(game, action, state, knowledge, pi, i, prior[pi,i])
+            table[pi, i] = pragmatic_listener(game, action, state, prior[pi, i], realisations)
     return table  # dim: (num_plyr, num_hand, 3)
 
 
-def get_realisations_probs(game, knowledge, player_index, card_index):
+def get_realisations_probs(game, knowledge, sample_num=100):
     """
-    returns a list of tuples with the first element being the realisation of a single card (type dictionary)
-    and the second element being the probability to get that realisation, P(r|c)
+    Returns a list of tuples.
+    The first element is the realisation of all cards dim: [plyr, card, 2] with
+    0-th elem being color, 1-st elem being rank.
+    The second element is the probability to get that realisation, P(r|c)
+    To make the problem tractable, sample @sample_num times and count frequency
     """
 
-    mylist = []
-    for col in range(game.num_colors()):
-        for rank in range(game.num_ranks()):
-            # realisations that are not possible
-            if knowledge[player_index][card_index][col][rank] == 0:
-                pass
-            else:
-                mylist.append(
-                    (
-                        {"color": col, "rank": rank},
-                        knowledge[player_index][card_index][col][rank]
-                        / np.sum(knowledge[player_index][card_index]),
-                    )
-                )
-    return mylist
+    # Get realisation for each individual card
+    total_r = []  # nested list with tuples of realisations for each plyr for each card
+    total_p = []
+    for player_index in range(game.num_players()):
+        single_plyr_r = []
+        single_plyr_p = []
+        for card_index in range(game.hand_size()):
+            single_card_r = []
+            single_card_p = []
+            for col in range(game.num_colors()):
+                for rank in range(game.num_ranks()):
+                    # realisations that are not possible
+                    if knowledge[player_index][card_index][col][rank] == 0:
+                        pass
+                    else:
+                        single_card_r.append([col,rank])
+                        single_card_p.append(knowledge[player_index][card_index][col][rank]
+                                             / np.sum(knowledge[player_index][card_index]))
+            single_plyr_r.append(single_card_r)
+            single_plyr_p.append(single_card_p)
+        total_r.append(single_plyr_r)
+        total_p.append(single_plyr_p)
+
+    # Combine individual realisation to get a joint realisation by sampling sample_num times
+    samples = []  # nested list with dim: [num_sample, num_plyr, num_card]
+    for _ in range(sample_num):
+        joint_sample = []
+        for player_index in range(game.num_players()):
+            plyr_sample = []
+            for card_index in range(game.hand_size()):
+                card_sample = np.random.choice(total_r[player_index][card_index], p=total_p[player_index][card_index])
+                plyr_sample.append(card_sample)
+            joint_sample.append(plyr_sample)
+        samples.append(joint_sample)
+
+    # Normalize frequency to get probability
+    realisations, counts = np.unique(samples, return_counts=True, axis=0)
+    return realisations, counts / np.sum(counts)
 
 
-def pragmatic_listener(game, action, state, knowledge, player_index, card_index, prior):
+def pragmatic_listener(game, action, state, prior, realisations):
     '''
     return a 3 dim simplex for PLAY,DISCARD,KEEP
     '''
@@ -109,8 +134,8 @@ def pragmatic_listener(game, action, state, knowledge, player_index, card_index,
     # 3 different numerators for each intention
     for intention in range(3):
         numerator = 0
-        # sum over r
-        for r, p in get_realisations_probs(game, knowledge, player_index, card_index):
+        # sum over r which is given as argument
+        for r, p in realisations:
             numerator += pragmatic_speaker(game, action, intention, r, state) * \
                      prior[intention] * p
         # save each value
@@ -129,7 +154,6 @@ def pragmatic_speaker(game, action, intention, realisation, state):
     alpha = 10
 
     # compute numerator
-    # TODO: copying doesn't perfectly copy??  state.fireworks()
     new_state = state.copy()
     new_state.apply_move(action)
     new_knowledge = generate_knowledge(game, new_state)

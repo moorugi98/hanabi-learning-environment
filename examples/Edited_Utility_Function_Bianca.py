@@ -3,6 +3,8 @@ PLAY = 0
 DISCARD = 1
 KEEP = 2
 
+# TODO: card['color'] -> card[0] and card['rank'] -> card[1]
+
 # first a function from the hanabi learning environment:
 def card_playable_on_fireworks(self, color, rank):
     """Returns true if and only if card can be successfully played.
