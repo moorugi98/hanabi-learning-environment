@@ -34,6 +34,12 @@ def run_game(game_parameters):
     intention = np.array([[[0.33, 0.33, 0.34] for i in range(game.hand_size())] for pi in range(game.num_players())])
     intention_history = []
 
+    # TODO: debug change_hands (line 521 in pyhanabi.py)
+    print("111111111111111111")
+    state.dummy()
+    state.change_hands()
+    print('222222222222222222')
+
     while not state.is_terminal():
         if state.cur_player() == pyhanabi.CHANCE_PLAYER_ID:
             state.deal_random_card()
@@ -53,6 +59,7 @@ def run_game(game_parameters):
         legal_moves = state.legal_moves()
         print("")
         print("Number of legal moves: {}".format(len(legal_moves)))
+        print(legal_moves)
         move = np.random.choice(legal_moves)
         print("Chose random legal move: {}".format(move))
         # make screenshot of old state before apply the move

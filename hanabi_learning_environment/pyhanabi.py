@@ -518,6 +518,15 @@ class HanabiState(object):
       self._game = lib.StateParentGame(c_state)
       lib.CopyState(c_state, self._state)
 
+  # TODO: ADDED wrapper for StateChangeHands() in pyhanabi.cc
+  def change_hands(self):
+    print("CHANGEHANDS")
+    lib.StateChangeHands(self._state)
+
+  # def delete_hand(self, player):
+  #   "Delete a single hand of a player to deal a card afterward"
+  #   lib.StateDeleteHand(self._state, player)
+
   def copy(self):
     """Returns a copy of the state."""
     return HanabiState(None, self._state)

@@ -50,7 +50,7 @@ uint8_t HandRankBitmask(const HanabiHand& hand, int rank) {
 }
 }  // namespace
 
-HanabiState::HanabiDeck::HanabiDeck(const HanabiGame& game)
+HanabiState::HanabiDeck::HanabiDeck(const HanabiGame& game)  // common knowledge basically?
     : card_count_(game.NumColors() * game.NumRanks(), 0),
       total_count_(0),
       num_ranks_(game.NumRanks()) {
@@ -100,6 +100,19 @@ HanabiState::HanabiState(const HanabiGame* parent_game, int start_player)
       life_tokens_(parent_game->MaxLifeTokens()),
       fireworks_(parent_game->NumColors(), 0),
       turns_to_play_(parent_game->NumPlayers()) {}
+
+// ADDED: method to reconfigure the hands
+void HanabiState::ChangeHands() {  // TODO how to give vector of HanabiCard as an argument
+  // Increment card_count_ for current hands (effectively put them back to the deck)
+  for (int pi = 0; pi < hands_.size(); ++pi) {
+    for (int ci = 0; ci < hands_[pi].Cards().size(); ++ci) {
+      index = CardToIndex(hands_[pi].Cards()[ci].Color(), hands_[pi].Cards()[ci].Rank())
+      ++ deck.card_count[index];  // TODO figure out a way to access card_count_ var of HanabiDeck
+    }
+  }
+
+  // Iterate over list of HanabiCard to set correct hands
+}
 
 void HanabiState::AdvanceToNextPlayer() {
   if (!deck_.Empty() && PlayerToDeal() >= 0) {
@@ -156,13 +169,14 @@ bool HanabiState::HintingIsLegal(HanabiMove move) const {
 
 int HanabiState::PlayerToDeal() const {
   for (int i = 0; i < hands_.size(); ++i) {
-    if (hands_[i].Cards().size() < ParentGame()->HandSize()) {
+    if (hands_[i].Cards().size() < ParentGame()->HandSize()) {  // first player with non-full hand is dealt a card
       return i;
     }
   }
   return -1;
 }
 
+// return True if the given move is legal
 bool HanabiState::MoveIsLegal(HanabiMove move) const {
   switch (move.MoveType()) {
     case HanabiMove::kDeal:
@@ -175,7 +189,7 @@ bool HanabiState::MoveIsLegal(HanabiMove move) const {
       break;
     case HanabiMove::kDiscard:
       if (InformationTokens() >= ParentGame()->MaxInformationTokens()) {
-        return false;
+        return false;  // discarding while max information token is reached is illegal
       }
       if (move.CardIndex() >= hands_[cur_player_].Cards().size()) {
         return false;
@@ -186,7 +200,7 @@ bool HanabiState::MoveIsLegal(HanabiMove move) const {
         return false;
       }
       break;
-    case HanabiMove::kRevealColor: {
+    case HanabiMove::kRevealColor: {  // if no cards can be positively identified illegal
       if (!HintingIsLegal(move)) {
         return false;
       }

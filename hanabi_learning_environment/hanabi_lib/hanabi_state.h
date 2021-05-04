@@ -72,6 +72,7 @@ class HanabiState {
   // Copy constructor for recursive game traversals using copy + apply-move.
   HanabiState(const HanabiState& state) = default;
 
+  void ChangeHands();  // TODO Added change hands
   bool MoveIsLegal(HanabiMove move) const;
   void ApplyMove(HanabiMove move);
   // Legal moves for state. Moves point into an unchanging list in parent_game.

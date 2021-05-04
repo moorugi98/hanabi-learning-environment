@@ -1,4 +1,5 @@
 import copy
+import random
 import numpy as np
 from Edited_Utility_Function_Bianca import utility
 
@@ -67,10 +68,10 @@ def infer_joint_intention(game, action, state, knowledge, prior):
     # Get intention for each card independently
     table = np.zeros((game.num_players(), game.hand_size(), 3))
     # TODO: exclude active player for the actual use?
-    realisations = get_realisations_probs(game, knowledge, sample_num=100)  # joint realisations is same for all cards
+    realisations, r_probs = get_realisations_probs(game, knowledge, sample_num=100)  # joint realisations is same for all cards
     for pi in range(game.num_players()):
         for i in range(game.hand_size()):
-            table[pi, i] = pragmatic_listener(game, action, state, prior[pi, i], realisations)
+            table[pi, i] = pragmatic_listener(game, action, state, prior[pi, i], realisations, r_probs)
     return table  # dim: (num_plyr, num_hand, 3)
 
 
@@ -98,7 +99,7 @@ def get_realisations_probs(game, knowledge, sample_num=100):
                     if knowledge[player_index][card_index][col][rank] == 0:
                         pass
                     else:
-                        single_card_r.append([col,rank])
+                        single_card_r.append([col, rank])
                         single_card_p.append(knowledge[player_index][card_index][col][rank]
                                              / np.sum(knowledge[player_index][card_index]))
             single_plyr_r.append(single_card_r)
@@ -113,17 +114,18 @@ def get_realisations_probs(game, knowledge, sample_num=100):
         for player_index in range(game.num_players()):
             plyr_sample = []
             for card_index in range(game.hand_size()):
-                card_sample = np.random.choice(total_r[player_index][card_index], p=total_p[player_index][card_index])
+                card_sample = random.choices(total_r[player_index][card_index], weights=total_p[player_index][card_index])
                 plyr_sample.append(card_sample)
             joint_sample.append(plyr_sample)
         samples.append(joint_sample)
 
     # Normalize frequency to get probability
+    samples = np.array(samples)
     realisations, counts = np.unique(samples, return_counts=True, axis=0)
     return realisations, counts / np.sum(counts)
 
 
-def pragmatic_listener(game, action, state, prior, realisations):
+def pragmatic_listener(game, action, state, prior, realisations, r_probs):
     '''
     return a 3 dim simplex for PLAY,DISCARD,KEEP
     '''
@@ -135,7 +137,7 @@ def pragmatic_listener(game, action, state, prior, realisations):
     for intention in range(3):
         numerator = 0
         # sum over r which is given as argument
-        for r, p in realisations:
+        for r, p in zip(realisations, r_probs):
             numerator += pragmatic_speaker(game, action, intention, r, state) * \
                      prior[intention] * p
         # save each value
@@ -166,6 +168,7 @@ def pragmatic_speaker(game, action, intention, realisation, state):
     # automatically only select actions with P(a*|r,c) != 0
     # iterate over all actions that the last agent could've taken
     # TODO: legal_moves() should come from realization-specific states, see line 494 in pyhanabi.py
+    # TODO: I might have to write a custom function anyway as legal_moves() might be player specific
 
     # print("!!!!!!!!!!!!!!!")
     # a = move.get_reveal_rank_move(target_offset=2, rank=0)
