@@ -93,6 +93,12 @@ void HanabiHand::RemoveFromHand(int card_index,
   card_knowledge_.erase(card_knowledge_.begin() + card_index);
 }
 
+// TODO Added a method to erase a card
+void HanabiHand::RevertACard() {
+  cards_.erase(cards_.begin());
+  card_knowledge_.erase(card_knowledge_.begin());
+}
+
 uint8_t HanabiHand::RevealColor(const int color) {
   uint8_t mask = 0;
   assert(cards_.size() <= 8);  // More than 8 cards is currently not supported.

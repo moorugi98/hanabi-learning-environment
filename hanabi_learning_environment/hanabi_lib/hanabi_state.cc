@@ -101,17 +101,16 @@ HanabiState::HanabiState(const HanabiGame* parent_game, int start_player)
       fireworks_(parent_game->NumColors(), 0),
       turns_to_play_(parent_game->NumPlayers()) {}
 
-// ADDED: method to reconfigure the hands
-void HanabiState::ChangeHands() {  // TODO how to give vector of HanabiCard as an argument
-  // Increment card_count_ for current hands (effectively put them back to the deck)
-  for (int pi = 0; pi < hands_.size(); ++pi) {
-    for (int ci = 0; ci < hands_[pi].Cards().size(); ++ci) {
-      index = CardToIndex(hands_[pi].Cards()[ci].Color(), hands_[pi].Cards()[ci].Rank())
-      ++ deck.card_count[index];  // TODO figure out a way to access card_count_ var of HanabiDeck
-    }
-  }
 
-  // Iterate over list of HanabiCard to set correct hands
+// TODO ADDED a method to send a single card back to the deck
+void HanabiState::DeleteHand(int pid) {
+  // pick the 0th card of pid player
+  HanabiCard card_to_delete = hands_[pid].Cards()[0];
+  // make the card_count_ of that card raise by 1
+  deck_.IncreaseCardCount(card_to_delete.Color(), card_to_delete.Rank());
+  // reset observation and cardknowledge
+  // check what happens when a card is discarded or play to its knowledge
+  hands_[pid].RevertACard();
 }
 
 void HanabiState::AdvanceToNextPlayer() {

@@ -42,6 +42,10 @@ class HanabiState {
     int CardCount(int color, int rank) const {
       return card_count_[CardToIndex(color, rank)];
     }
+    void IncreaseCardCount(int color, int rank) { // TODO ADDED
+      ++card_count_[CardToIndex(color, rank)];
+      ++total_count_;
+    }
 
    private:
     int CardToIndex(int color, int rank) const {
@@ -72,7 +76,7 @@ class HanabiState {
   // Copy constructor for recursive game traversals using copy + apply-move.
   HanabiState(const HanabiState& state) = default;
 
-  void ChangeHands();  // TODO Added change hands
+  void DeleteHand(int pid);  // TODO Added delete a hand
   bool MoveIsLegal(HanabiMove move) const;
   void ApplyMove(HanabiMove move);
   // Legal moves for state. Moves point into an unchanging list in parent_game.

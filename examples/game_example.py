@@ -36,8 +36,7 @@ def run_game(game_parameters):
 
     # TODO: debug change_hands (line 521 in pyhanabi.py)
     print("111111111111111111")
-    state.dummy()
-    state.change_hands()
+    state.delete_hand(1)
     print('222222222222222222')
 
     while not state.is_terminal():
