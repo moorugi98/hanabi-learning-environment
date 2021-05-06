@@ -289,10 +289,11 @@ int HistoryItemDealToPlayer(pyhanabi_history_item_t* item) {
 
 /* Wrapper definitions for HanabiState. */
 // TODO ADDED wrapper for HanabiState::ChangeHands() in hanabi_state.cc
-void StateDeleteHand(pyhanabi_state_t* state, int pid) {
-  std::cout << "Hello World!";
+int StateDeleteHand(pyhanabi_state_t* state, int pid) {
   auto hanabi_state = reinterpret_cast<hanabi_learning_env::HanabiState*>(state->state);
+  std::cout << "Hello World!";
   hanabi_state->DeleteHand(pid);
+  return 1;
 }
 
 void NewState(pyhanabi_game_t* game, pyhanabi_state_t* state) {

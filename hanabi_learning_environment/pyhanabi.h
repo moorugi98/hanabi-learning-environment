@@ -108,7 +108,7 @@ int HistoryItemNewlyRevealedBitmask(pyhanabi_history_item_t* item);
 int HistoryItemDealToPlayer(pyhanabi_history_item_t* item);
 
 /* State functions. */
-void StateDeleteHand(pyhanabi_state_t* state, int pid);  // TODO added StateChangeHands
+int StateDeleteHand(pyhanabi_state_t* state, int pid);  // TODO added StateChangeHands
 void NewState(pyhanabi_game_t* game, pyhanabi_state_t* state);
 void CopyState(const pyhanabi_state_t* src, pyhanabi_state_t* dest);
 void DeleteState(pyhanabi_state_t* state);

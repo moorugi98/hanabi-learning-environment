@@ -20,6 +20,8 @@
 
 #include "util.h"
 
+#include <iostream> // TODO ADDED
+
 namespace hanabi_learning_env {
 
 namespace {
@@ -87,6 +89,11 @@ HanabiCard HanabiState::HanabiDeck::DealCard(int color, int rank) {
   return HanabiCard(IndexToColor(index), IndexToRank(index));
 }
 
+void HanabiState::HanabiDeck::IncreaseCardCount(int color, int rank) {
+  ++card_count_[CardToIndex(color, rank)];
+  ++total_count_;
+    }
+
 HanabiState::HanabiState(const HanabiGame* parent_game, int start_player)
     : parent_game_(parent_game),
       deck_(*parent_game),
@@ -101,16 +108,28 @@ HanabiState::HanabiState(const HanabiGame* parent_game, int start_player)
       fireworks_(parent_game->NumColors(), 0),
       turns_to_play_(parent_game->NumPlayers()) {}
 
-
 // TODO ADDED a method to send a single card back to the deck
 void HanabiState::DeleteHand(int pid) {
   // pick the 0th card of pid player
-  HanabiCard card_to_delete = hands_[pid].Cards()[0];
+  HanabiCard card_to_delete = hands_[pid].Cards()[0];  // see line 270 for justification of this access although I don't know where Cards() come from
   // make the card_count_ of that card raise by 1
-  deck_.IncreaseCardCount(card_to_delete.Color(), card_to_delete.Rank());
-  // reset observation and cardknowledge
-  // check what happens when a card is discarded or play to its knowledge
-  hands_[pid].RevertACard();
+  deck_.IncreaseCardCount(1,1);
+  deck_.IncreaseCardCount(2,2);
+
+//  deck_.IncreaseCardCount(hands_[pid].Cards()[0].Color(), 1);
+//
+//  deck_.IncreaseCardCount(card_to_delete.Color(), 1);
+//
+  const int i = card_to_delete.Color();
+  const bool truthi = i == 1;
+  std::cout << true;
+  std::cout << truthi;
+//  std::cout << 'DJISPJFDPI' << i;
+//  deck_.IncreaseCardCount(i, 1);  // TODO why this don't work if (1,1) works
+//
+//  // reset observation and cardknowledge
+//  // check what happens when a card is discarded or play to its knowledge
+//  hands_[pid].RevertACard();
 }
 
 void HanabiState::AdvanceToNextPlayer() {

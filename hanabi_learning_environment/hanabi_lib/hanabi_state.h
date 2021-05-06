@@ -37,14 +37,11 @@ class HanabiState {
     // DealCard returns invalid card on failure.
     HanabiCard DealCard(int color, int rank);
     HanabiCard DealCard(std::mt19937* rng);
+    void IncreaseCardCount(int color, int rank); // TODO ADDED
     int Size() const { return total_count_; }
     bool Empty() const { return total_count_ == 0; }
     int CardCount(int color, int rank) const {
       return card_count_[CardToIndex(color, rank)];
-    }
-    void IncreaseCardCount(int color, int rank) { // TODO ADDED
-      ++card_count_[CardToIndex(color, rank)];
-      ++total_count_;
     }
 
    private:
