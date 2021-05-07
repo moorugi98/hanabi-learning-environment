@@ -352,6 +352,13 @@ class HanabiMove(object):
     assert lib.GetRevealRankMove(target_offset, rank, c_move)
     return HanabiMove(c_move)
 
+  # TODO ADDED
+  @staticmethod
+  def get_deal_move(color, rank):
+    c_move = ffi.new("pyhanabi_move_t*")
+    assert lib.GetDealMove(color, rank, c_move)
+    return HanabiMove(c_move)
+
   def __str__(self):
     c_string = lib.MoveToString(self._move)
     string = encode_ffi_string(c_string)

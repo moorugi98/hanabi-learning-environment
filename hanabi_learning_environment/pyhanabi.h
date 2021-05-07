@@ -93,6 +93,8 @@ bool GetDiscardMove(int card_index, pyhanabi_move_t* move);
 bool GetPlayMove(int card_index, pyhanabi_move_t* move);
 bool GetRevealColorMove(int target_offset, int color, pyhanabi_move_t* move);
 bool GetRevealRankMove(int target_offset, int rank, pyhanabi_move_t* move);
+bool GetDealMove(int color, int rank, pyhanabi_move_t* move);  // TODO Added
+
 
 /* HistoryItem functions. */
 void DeleteHistoryItem(pyhanabi_history_item_t* item);
@@ -108,7 +110,7 @@ int HistoryItemNewlyRevealedBitmask(pyhanabi_history_item_t* item);
 int HistoryItemDealToPlayer(pyhanabi_history_item_t* item);
 
 /* State functions. */
-int StateDeleteHand(pyhanabi_state_t* state, int pid);  // TODO added StateChangeHands
+void StateDeleteHand(pyhanabi_state_t* state, int pid);  // TODO added StateChangeHands
 void NewState(pyhanabi_game_t* game, pyhanabi_state_t* state);
 void CopyState(const pyhanabi_state_t* src, pyhanabi_state_t* dest);
 void DeleteState(pyhanabi_state_t* state);

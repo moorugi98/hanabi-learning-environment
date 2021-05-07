@@ -195,6 +195,15 @@ bool GetRevealRankMove(int target_offset, int rank, pyhanabi_move_t* move) {
   return move->move != nullptr;
 }
 
+// TODO ADDED: manually deal a specified card to replace hands
+bool GetDealMove(int color, int rank, pyhanabi_move_t* move) {
+  REQUIRE(move != nullptr);
+  move->move = new hanabi_learning_env::HanabiMove(
+      hanabi_learning_env::HanabiMove::kDeal, -1, -1, color,
+      rank);
+  return move->move != nullptr;
+}
+
 /* Wrapper definitions for HanabiHistoryItem. */
 void DeleteHistoryItem(pyhanabi_history_item_t* item) {
   REQUIRE(item != nullptr);
@@ -289,11 +298,9 @@ int HistoryItemDealToPlayer(pyhanabi_history_item_t* item) {
 
 /* Wrapper definitions for HanabiState. */
 // TODO ADDED wrapper for HanabiState::ChangeHands() in hanabi_state.cc
-int StateDeleteHand(pyhanabi_state_t* state, int pid) {
+void StateDeleteHand(pyhanabi_state_t* state, int pid) {
   auto hanabi_state = reinterpret_cast<hanabi_learning_env::HanabiState*>(state->state);
-  std::cout << "Hello World!";
   hanabi_state->DeleteHand(pid);
-  return 1;
 }
 
 void NewState(pyhanabi_game_t* game, pyhanabi_state_t* state) {

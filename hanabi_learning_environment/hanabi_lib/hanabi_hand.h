@@ -108,8 +108,7 @@ class HanabiHand {
   // Make cards with the given rank visible.
   // Returns new information bitmask, bit_i set if card_i color was revealed
   // and was previously unknown.
-  void RevertACard();
-  // TODO Added RevertACard()
+  void RevertACard();  // TODO Added RevertACard()
   uint8_t RevealRank(int rank);
   // Make cards with the given color visible.
   // Returns new information bitmask, bit_i set if card_i color was revealed

@@ -93,7 +93,7 @@ void HanabiHand::RemoveFromHand(int card_index,
   card_knowledge_.erase(card_knowledge_.begin() + card_index);
 }
 
-// TODO Added a method to erase a card
+// TODO Added a method to erase a card from hand
 void HanabiHand::RevertACard() {
   cards_.erase(cards_.begin());
   card_knowledge_.erase(card_knowledge_.begin());

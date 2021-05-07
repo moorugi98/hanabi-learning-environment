@@ -20,8 +20,6 @@
 
 #include "util.h"
 
-#include <iostream> // TODO ADDED
-
 namespace hanabi_learning_env {
 
 namespace {
@@ -111,25 +109,11 @@ HanabiState::HanabiState(const HanabiGame* parent_game, int start_player)
 // TODO ADDED a method to send a single card back to the deck
 void HanabiState::DeleteHand(int pid) {
   // pick the 0th card of pid player
-  HanabiCard card_to_delete = hands_[pid].Cards()[0];  // see line 270 for justification of this access although I don't know where Cards() come from
-  // make the card_count_ of that card raise by 1
-  deck_.IncreaseCardCount(1,1);
-  deck_.IncreaseCardCount(2,2);
-
-//  deck_.IncreaseCardCount(hands_[pid].Cards()[0].Color(), 1);
-//
-//  deck_.IncreaseCardCount(card_to_delete.Color(), 1);
-//
-  const int i = card_to_delete.Color();
-  const bool truthi = i == 1;
-  std::cout << true;
-  std::cout << truthi;
-//  std::cout << 'DJISPJFDPI' << i;
-//  deck_.IncreaseCardCount(i, 1);  // TODO why this don't work if (1,1) works
-//
-//  // reset observation and cardknowledge
-//  // check what happens when a card is discarded or play to its knowledge
-//  hands_[pid].RevertACard();
+  HanabiCard card_to_delete = hands_[pid].Cards()[0];
+  // make the card_count_ of that card raise by 1 as it is returned to the deck
+  deck_.IncreaseCardCount(card_to_delete.Color(), card_to_delete.Rank());
+  // reset card knowledge
+  hands_[pid].RevertACard();
 }
 
 void HanabiState::AdvanceToNextPlayer() {
@@ -198,9 +182,10 @@ int HanabiState::PlayerToDeal() const {
 bool HanabiState::MoveIsLegal(HanabiMove move) const {
   switch (move.MoveType()) {
     case HanabiMove::kDeal:
-      if (cur_player_ != kChancePlayerId) {
-        return false;
-      }
+    // TODO Added: as we deal to replace hands manually, this doesn't work anymore
+//      if (cur_player_ != kChancePlayerId) {
+//        return false;
+//      }
       if (deck_.CardCount(move.Color(), move.Rank()) == 0) {
         return false;
       }
