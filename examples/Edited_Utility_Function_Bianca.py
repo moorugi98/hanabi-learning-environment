@@ -3,7 +3,6 @@ PLAY = 0
 DISCARD = 1
 KEEP = 2
 
-# TODO: card['color'] -> card[0] and card['rank'] -> card[1]
 
 # first a function from the hanabi learning environment:
 def card_playable_on_fireworks(self, color, rank):
@@ -28,7 +27,7 @@ def utility(intention, card, state, knowledge):
         """
         return True if the card can be surely discarded
         """
-        if fireworks[card["color"]] > int(card["rank"]):
+        if fireworks[card[0]] > int(card[1]):
             return True
         else:
             return False
@@ -37,9 +36,9 @@ def utility(intention, card, state, knowledge):
         """
         return number of instance of a given card (if it's relevant) that is still left in the game
         """
-        if card["rank"] == 0:  # rank one
+        if card[1] == 0:  # rank one
             total_copies = 3
-        elif card["rank"] == 4:  # rank five
+        elif card[1] == 4:  # rank five
             total_copies = 1
         else:
             total_copies = 2
@@ -48,7 +47,7 @@ def utility(intention, card, state, knowledge):
         count = 0
         for discarded in discard_pile:
             col, rank = discarded.color(), discarded.rank()
-            if (col == card["color"]) and (rank == card["rank"]):
+            if (col == card[0]) and (rank == card[1]):
                 count += 1
         return total_copies - count
 
@@ -72,12 +71,12 @@ def utility(intention, card, state, knowledge):
         # [B, only added comment]: case 1: card is playable
         # if intention is play and card is playable, this results in one more card on
         # the fireworks. Reward this.
-        card_color = card["color"]
-        card_rank = card["rank"]
+        card_color = card[0]
+        card_rank = card[1]
         if state.card_playable_on_fireworks(card_color, card_rank):
             # [B]: check if the same card is already cued as 'playable'
             # on some other player's hand first
-            # if ((card_on_hands['color'] is card_color) and (card_on_hands['rank'] is rank_color)):
+            # if ((card_on_hands['color'] is card_color) and (card_on_hands[1] is rank_color)):
             #     # [B]: #TODO: check if other card instance is already hinted as "PLAY" or "KEEP"
             #     # if YES:
             #     #   score += -1
@@ -106,9 +105,9 @@ def utility(intention, card, state, knowledge):
             # [B, only added comment]: Case 3: card is critical
             elif remaining_copies(card, state.discard_pile()) == 0:
                 # [B]: case differentiation:
-                if card["rank"] == 5:
+                if card[1] == 5:
                     score += -8
-                elif card["rank"] == 4:
+                elif card[1] == 4:
                     score += -10
                 # [B]: losing a critical 1,2,3 would reduce the total
                 # game score the most, punish it accordingly.
@@ -124,23 +123,23 @@ def utility(intention, card, state, knowledge):
         score += 1
 
         # punish discarding a playable card
-        if state.card_playable_on_fireworks(card["color"], card["rank"]):
+        if state.card_playable_on_fireworks(card[0], card[1]):
             score += -2
             # [B]: playable 2,3 advance the game more than 4,5
             # punish losing a playable 2,3 more (we start indexing at 0)
-            if card["rank"] == 2 or card["rank"] == 3:
+            if card[1] == 2 or card[1] == 3:
                 score += -3
 
         # if card is not playable right now but would have been relevant in the future, punish
         # discarding it depending on the number of remaining copies in the game
         elif not CardUseless(card, state.fireworks()):
-            card_color = card["color"]
-            card_rank = card["rank"]
+            card_color = card[0]
+            card_rank = card[1]
             # [B]: Check if to be discarded card is already clued on someone's
             # hand, otherwise punish that -0.5
             # # (TODO: estimated_hands in deepmind framework?)
             # for card_on_hands in state.estimated_hands[:]:
-            #     if ((card_on_hands['color'] is card_color) and (card_on_hands['rank'] is rank_color)):
+            #     if ((card_on_hands['color'] is card_color) and (card_on_hands[1] is rank_color)):
             #         # [B]: #TODO: check if other card instance is already hinted as "PLAY" or KEEP
             #         # if YES:
             #         #   score += 1
@@ -156,9 +155,9 @@ def utility(intention, card, state, knowledge):
             # [B, only added comment]: Case 3: card is critical
             elif remaining_copies(card, state.discard_pile()) == 0:
                 # [B]: case differentiation:
-                if card["rank"] == 5:
+                if card[1] == 5:
                     score += -8
-                elif card["rank"] == 4:
+                elif card[1] == 4:
                     score += -10
                 # [B]: losing a critical 1,2,3 would reduce the total
                 # game score the most, punish it accordingly.
@@ -174,11 +173,11 @@ def utility(intention, card, state, knowledge):
         # [B, only added comment]: Case 1: card is playable right now
         # keeping a playable card is punished, because it does not help the game
         # [B]: I'm unsure about this part
-        if state.card_playable_on_fireworks(card['color'], card['rank']):
+        if state.card_playable_on_fireworks(card[0], card[1]):
             score += -2
 
         # [B]: Case 2: card will be playable soon (with one additional card needed on the stack)
-        elif state.card_playable_on_fireworks(card["color"], card["rank"] + 1):
+        elif state.card_playable_on_fireworks(card[0], card[1] + 1):
             score += 3
             # [B]: on top of that, check if this additional card is already on
             # someone's hand with the intention of PLAY (by acessing the public
@@ -194,9 +193,9 @@ def utility(intention, card, state, knowledge):
             # [B, only added comment]: Case 3: card is critical
             elif remaining_copies(card, state.discard_pile()) == 0:
                 # [B]: Case Differentiation:
-                if card["rank"] == 5:
+                if card[1] == 5:
                     score += 5
-                elif card["rank"] == 4:
+                elif card[1] == 4:
                     score += 8
                 # [B]: saving a critical 1,2,3 will be most beneficial
                 # to the end score.

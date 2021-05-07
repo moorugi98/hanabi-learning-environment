@@ -70,8 +70,13 @@ def infer_joint_intention(game, action, state, knowledge, prior):
     # TODO: exclude active player for the actual use?
     realisations, r_probs = get_realisations_probs(game, knowledge, sample_num=100)  # joint realisations is same for all cards
     for pi in range(game.num_players()):
-        for i in range(game.hand_size()):
-            table[pi, i] = pragmatic_listener(game, action, state, prior[pi, i], realisations, r_probs)
+        for ci in range(game.hand_size()):
+            #TODO: debug
+            # print()
+            # print()
+            # print(pi,ci)
+            # print()
+            table[pi, ci] = pragmatic_listener(game, action, state, prior[pi, ci], realisations, r_probs, pi, ci)
     return table  # dim: (num_plyr, num_hand, 3)
 
 
@@ -83,38 +88,33 @@ def get_realisations_probs(game, knowledge, sample_num=100):
     The second element is the probability to get that realisation, P(r|c)
     To make the problem tractable, sample @sample_num times and count frequency
     """
+    # Default meshgrid of colors and ranks to be sampled
+    card_meshgrid = np.zeros((game.num_colors(), game.num_ranks(), 2))
+    card_meshgrid[:, :, 0] = np.repeat(np.array([range(game.num_colors())]).T, game.num_ranks(), axis=1)  # color
+    card_meshgrid[:, :, 1] = np.repeat(np.array([range(game.num_ranks())]), game.num_colors(), axis=0)  # rank
+    card_meshgrid = np.reshape(card_meshgrid, (-1,2))
 
-    # Get realisation for each individual card
-    total_r = []  # nested list with tuples of realisations for each plyr for each card
-    total_p = []
-    for player_index in range(game.num_players()):
-        single_plyr_r = []
-        single_plyr_p = []
-        for card_index in range(game.hand_size()):
-            single_card_r = []
-            single_card_p = []
-            for col in range(game.num_colors()):
-                for rank in range(game.num_ranks()):
-                    # realisations that are not possible
-                    if knowledge[player_index][card_index][col][rank] == 0:
-                        pass
-                    else:
-                        single_card_r.append([col, rank])
-                        single_card_p.append(knowledge[player_index][card_index][col][rank]
-                                             / np.sum(knowledge[player_index][card_index]))
-            single_plyr_r.append(single_card_r)
-            single_plyr_p.append(single_card_p)
-        total_r.append(single_plyr_r)
-        total_p.append(single_plyr_p)
-
-    # Combine individual realisation to get a joint realisation by sampling sample_num times
-    samples = []  # nested list with dim: [num_sample, num_plyr, num_card]
+    # Sampling
+    samples = []  # nested list with dim: [num_sample, num_plyr, num_card, 2 (col,rank)]
     for _ in range(sample_num):
         joint_sample = []
+        # sample knowledge diverge whenever a card is sampled, which is subtracted
+        sample_knowledge = np.zeros((game.num_colors(), game.num_ranks()))
         for player_index in range(game.num_players()):
             plyr_sample = []
             for card_index in range(game.hand_size()):
-                card_sample = random.choices(total_r[player_index][card_index], weights=total_p[player_index][card_index])
+                # sample from 1-D array (index array) with appropriate weights
+                try:
+                    index_to_sample = random.choices(range(game.num_colors()*game.num_ranks()),
+                                                 weights=knowledge[player_index][card_index].flatten() - sample_knowledge.flatten())
+                except:
+                    print("look line 111 of intention update.py")
+                    print(player_index, card_index)
+                    print(sample_knowledge)
+                    exit()
+                card_sample = np.int_(card_meshgrid[index_to_sample][0])
+                # TODO: always going thru same sequence introduce bias (1st plyr more likely to get a rare card...)
+                sample_knowledge[card_sample[0], card_sample[1]] += 1  # now this is sampled
                 plyr_sample.append(card_sample)
             joint_sample.append(plyr_sample)
         samples.append(joint_sample)
@@ -125,7 +125,7 @@ def get_realisations_probs(game, knowledge, sample_num=100):
     return realisations, counts / np.sum(counts)
 
 
-def pragmatic_listener(game, action, state, prior, realisations, r_probs):
+def pragmatic_listener(game, action, state, prior, realisations, r_probs, plyr_index, card_index):
     '''
     return a 3 dim simplex for PLAY,DISCARD,KEEP
     '''
@@ -137,8 +137,11 @@ def pragmatic_listener(game, action, state, prior, realisations, r_probs):
     for intention in range(3):
         numerator = 0
         # sum over r which is given as argument
-        for r, p in zip(realisations, r_probs):
-            numerator += pragmatic_speaker(game, action, intention, r, state) * \
+        for i, (r, p) in enumerate(zip(realisations, r_probs)):
+            #TODO: debug enumerate and print
+            # print('realization index: ', i)
+            # print('realization: ', r)
+            numerator += pragmatic_speaker(game, action, intention, r, state, plyr_index, card_index) * \
                      prior[intention] * p
         # save each value
         probs.append(numerator)
@@ -148,42 +151,50 @@ def pragmatic_listener(game, action, state, prior, realisations, r_probs):
 
 
 
-def pragmatic_speaker(game, action, intention, realisation, state):
+def pragmatic_speaker(game, action, intention, realisation, state, plyr_index, card_index):
     """
     return a scala which is P(action|intention,realisation,context)
     """
     # TODO: adjust rationality parameter dynamically
     alpha = 10
 
-    # compute numerator
+    # Compute numerator
     new_state = state.copy()
     new_state.apply_move(action)
     new_knowledge = generate_knowledge(game, new_state)
     numerator = np.exp(
-        alpha * utility(intention, realisation, new_state, new_knowledge)
+        alpha * utility(intention, realisation[plyr_index][card_index], new_state, new_knowledge)
     )
 
-    # compute denominator
+    # Compute denominator
     denominator = 0
-    # automatically only select actions with P(a*|r,c) != 0
-    # iterate over all actions that the last agent could've taken
-    # TODO: legal_moves() should come from realization-specific states, see line 494 in pyhanabi.py
-    # TODO: I might have to write a custom function anyway as legal_moves() might be player specific
 
-    # print("!!!!!!!!!!!!!!!")
-    # a = move.get_reveal_rank_move(target_offset=2, rank=0)
-    # print(a)
-    # state.apply_move(a)
-    # print("!!!!!!!!!!!!")
-    # print(state)
-    # break
+    # replace hands to match the specific realization
+    fictive_state = state.copy()
+    # print(fictive_state)
+    for pi in range(game.num_players()):
+        for ci in range(game.hand_size()):
+            #TODO: HERE IS THE PROBLEM: one can't remove one then add one as potentially one needs more cards then allowed
+            # print(pi, ci)
+            # print(action.get_deal_move(realisation[pi][ci][0], realisation[pi][ci][1]))
+            fictive_state.delete_hand(pi)
+    for pi in range(game.num_players()):
+        for ci in range(game.hand_size()):
+            fictive_state.apply_move(action.get_deal_move(realisation[pi][ci][0], realisation[pi][ci][1]))
+            # print(fictive_state)
 
-    for a in state.legal_moves():
-        ns = state.copy()
+    # iterate over all possible actions
+    #TODO: debug
+    # print('Num allowed actions: ', len(fictive_state.legal_moves()))
+    for coun, a in enumerate(fictive_state.legal_moves()):
+        ns = fictive_state.copy()  # TODO: where should the action be applied? to the actual state or to fictive?
         # this is how different actions makes a difference
+        #TODO: debug
+        # print(coun)
+        # print(a)
         ns.apply_move(a)
         nk = generate_knowledge(game, ns)
-        denominator += np.exp(alpha * utility(intention, realisation, ns, nk))
+        denominator += np.exp(alpha * utility(intention, realisation[plyr_index][card_index], ns, nk))  # TODO: utility currently only takes realisation of a single card into account, but it could now easily work with whole realisation?
 
     return numerator / denominator
 ##########################################################################

@@ -34,20 +34,6 @@ def run_game(game_parameters):
     intention = np.array([[[0.33, 0.33, 0.34] for i in range(game.hand_size())] for pi in range(game.num_players())])
     intention_history = []
 
-    # # TODO: debug change_hands (line 521 in pyhanabi.py)
-    # print(state)
-    # print("111111111111111111")
-    # for _ in range(4):
-    #     state.deal_random_card()
-    # state.delete_hand(1)
-    # print('222222222222222222')
-    # print(state)
-    #
-    # print(state.cur_player())
-    # # legal_moves = state.legal_moves()
-    # # move = np.random.choice(legal_moves)
-    # # move = move.get_deal_move(1,1)
-
     while not state.is_terminal():
         if state.cur_player() == pyhanabi.CHANCE_PLAYER_ID:
             state.deal_random_card()
@@ -60,33 +46,9 @@ def run_game(game_parameters):
         print("STATE")
         print(state)
 
-        # print("KNOWLEDGE")
-        # knowledge = intention_update.generate_knowledge(game, state)
-        # print(knowledge)
-
-        print()
-        print('Now a card is deleted')
-        state.delete_hand(1)
-        print(state)
-        print("Now one card is replaced")
-        legal_moves = state.legal_moves()
-        move = np.random.choice(legal_moves)
-        move = move.get_deal_move(1,1)
-        print(move)
-        state.apply_move(move)
-        print(state)
-        print('Another card is deleted')
-        state.delete_hand(1)
-        print(state)
-        print("Now the another one is also replaced")
-        move = move.get_deal_move(0,0)
-        print(move)
-        state.apply_move(move)
-        print(state)
-
-
-
-        print(state)
+        print("KNOWLEDGE")
+        knowledge = intention_update.generate_knowledge(game, state)
+        print(knowledge)
 
         legal_moves = state.legal_moves()
         print("")
@@ -98,32 +60,28 @@ def run_game(game_parameters):
         old_state = state.copy()
         state.apply_move(move)
 
+        # code intentions
+        print()
+        print("INTENTION")
+        intention = intention_update.infer_joint_intention(
+                                                        game=game,
+                                                        action=move,
+                                                        state=old_state,
+                                                        knowledge=knowledge,
+                                                        prior=intention)
+        intention_history.append(intention)
+        np.set_printoptions(precision=2, suppress=True)
+        print(intention)
+        counter += 1
 
-
-
-
-    #     # code intentions
-    #     print()
-    #     print("INTENTION")
-    #     intention = intention_update.infer_joint_intention(
-    #                                                     game=game,
-    #                                                     action=move,
-    #                                                     state=old_state,
-    #                                                     knowledge=knowledge,
-    #                                                     prior=intention)
-    #     intention_history.append(intention)
-    #     np.set_printoptions(precision=2, suppress=True)
-    #     print(intention)
-    #     counter += 1
-    #
-    # print("")
-    # print("Game done. Terminal state:")
-    # print("")
-    # print(state)
-    # print("")
-    # print("score: {}".format(state.score()))
-    # path = os.path.join(os.getcwd(), 'history', 'score:{}_{}.npy'.format(state.score(), datetime.now()))
-    # np.save(path, intention_history)  # save histories of intention change for later analysis
+    print("")
+    print("Game done. Terminal state:")
+    print("")
+    print(state)
+    print("")
+    print("score: {}".format(state.score()))
+    path = os.path.join(os.getcwd(), 'examples/history', 'score:{}_{}.npy'.format(state.score(), datetime.now()))
+    np.save(path, intention_history)  # save histories of intention change for later analysis
 
 
 if __name__ == "__main__":
