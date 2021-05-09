@@ -31,7 +31,12 @@ def run_game(game_parameters):
     state = game.new_initial_state()
     counter = 0
     # initial intention is agnostic for PLAY, DISCARD, KEEP
-    intention = np.array([[[0.33, 0.33, 0.34] for i in range(game.hand_size())] for pi in range(game.num_players())])
+    intention = np.array(
+        [
+            [[0.3, 0.2, 0.5] for i in range(game.hand_size())]
+            for pi in range(game.num_players())
+        ]
+    )
     intention_history = []
 
     while not state.is_terminal():
@@ -64,11 +69,12 @@ def run_game(game_parameters):
         print()
         print("INTENTION")
         intention = intention_update.infer_joint_intention(
-                                                        game=game,
-                                                        action=move,
-                                                        state=old_state,
-                                                        knowledge=knowledge,
-                                                        prior=intention)
+            game=game,
+            action=move,
+            state=old_state,
+            knowledge=knowledge,
+            prior=intention,
+        )
         intention_history.append(intention)
         np.set_printoptions(precision=2, suppress=True)
         print(intention)
@@ -80,8 +86,14 @@ def run_game(game_parameters):
     print(state)
     print("")
     print("score: {}".format(state.score()))
-    path = os.path.join(os.getcwd(), 'examples/history', 'score:{}_{}.npy'.format(state.score(), datetime.now()))
-    np.save(path, intention_history)  # save histories of intention change for later analysis
+    path = os.path.join(
+        os.getcwd(),
+        "examples/history",
+        "score:{}_{}.npy".format(state.score(), datetime.now()),
+    )
+    np.save(
+        path, intention_history
+    )  # save histories of intention change for later analysis
 
 
 if __name__ == "__main__":

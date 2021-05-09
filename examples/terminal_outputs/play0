@@ -1,0 +1,76 @@
+random_start_player=false
+seed=-1876728419
+max_life_tokens=3
+hand_size=2
+max_information_tokens=8
+ranks=5
+colors=4
+observation_type=1
+players=3
+
+
+
+counter:  0
+STATE
+Life tokens: 3
+Info tokens: 8
+Fireworks: R0 Y0 G0 W0 
+Hands:
+Cur player
+W3 || XX|RYGW12345
+G1 || XX|RYGW12345
+-----
+Y2 || XX|RYGW12345
+Y3 || XX|RYGW12345
+-----
+R2 || XX|RYGW12345
+G3 || XX|RYGW12345
+Deck size: 34
+Discards:
+KNOWLEDGE
+[[[[3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]]
+
+  [[3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]]
+
+  [[3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]]]
+
+
+ [[[3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]]
+
+  [[3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]
+   [3 2 2 2 1]]]]
+
+Number of legal moves: 9
+[(Play 0), (Play 1), (Reveal player +1 color Y), (Reveal player +2 color R), (Reveal player +2 color G), (Reveal player +1 rank 2), (Reveal player +1 rank 3), (Reveal player +2 rank 2), (Reveal player +2 rank 3)]
+Chose random legal move: (Play 0)
+
+INTENTION
+[[[0.01 0.02 0.97]
+  [0.3  0.2  0.5 ]]
+
+ [[0.37 0.48 0.16]
+  [0.2  0.29 0.51]]
+
+ [[0.04 0.08 0.88]
+  [0.01 0.02 0.97]]]
+
